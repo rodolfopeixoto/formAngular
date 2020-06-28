@@ -29,9 +29,7 @@
         <div  class="col-sm-4 col-form-label col-form-label-sm" >Campo livre</div>
         <div class="col-sm-6">
           <div class="form-check">
-            <input class="form-check-input" type="checkbox"
-              formControlName="writingFree"
-              (change)="writeFree = !writeFree"
+            <input class="form-check-input" type="checkbox" formControlName="writingFree" (change)="writingFree = !writingFree"
               id="writingFree" />
             <label class="col-sm-4 col-form-label col-form-label-sm"  for="writingFree">
             </label>
@@ -59,8 +57,9 @@
           class="form-control"
           formControlName="item"
           [(ngModel)]="formCreateField.item"
-          value={{formCreateField.item}}
+          [value]="contentItem"
           />
+
           <button
           type="button"
           (click)="addItem()"

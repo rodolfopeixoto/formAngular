@@ -9,6 +9,7 @@ export class FormModalComponent {
 
   typeFields: any = ['Texto', 'Inteiro', 'Array', 'Flutuante'];
   items: any = [];
+  contentItem: string = "";
 
   @Input()id: number;
   formCreateField: FormGroup;
@@ -22,21 +23,24 @@ export class FormModalComponent {
     this.formCreateField = this.formBuilder.group({
       nameField: ['', Validators.required],
       typeField: ['', Validators.required],
-      writingFree: [false, Validators.required],
-      canMultipleSelect: [false, Validators.required],
-      item: [this.items, Validators.required]
+      writingFree: [false],
+      canMultipleSelect: [false],
+      item: [this.contentItem],
+      collectionItems: [this.items]
     });
   }
 
   addItem(){
+    if(this.formCreateField.value.item === null) return;
     this.items.push(this.formCreateField.value.item);
-    console.log(this.formCreateField.get('item'));
-    this.formCreateField.reset('item');
+    this.contentItem = null
   }
 
   private submitForm() {
-    // this.activeModal.close(this.formCreateField.value);
+    let formObject = this.formCreateField.getRawValue();
+    delete formObject.item;
     alert(JSON.stringify(this.formCreateField.value));
     this.formCreateField.reset();
+    this.items.length = 0;
   }
 }
