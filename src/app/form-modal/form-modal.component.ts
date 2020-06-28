@@ -1,6 +1,8 @@
 import { Component, Output, EventEmitter, Input } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+
+import { ApiService } from './../api.service';
 @Component({
   selector: 'app-form-modal',
   templateUrl: './form-modal.component.html'
@@ -15,7 +17,8 @@ export class FormModalComponent {
   formCreateField: FormGroup;
   constructor(
    public activeModal: NgbActiveModal,
-   private formBuilder: FormBuilder
+   private formBuilder: FormBuilder,
+   private apiService: ApiService
   ) {
     this.createForm();
   }
@@ -41,6 +44,12 @@ export class FormModalComponent {
     delete formObject.item;
     alert(JSON.stringify(this.formCreateField.value));
     this.formCreateField.reset();
-    this.items.length = 0;
+    this.items.length = 0; //zerar o items
+
+    // this.apiService.createFormField(this.formCreateField.value).subscribe( (response) => {
+    //   console.log(response);
+
+    // })
+
   }
 }
